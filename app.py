@@ -141,6 +141,39 @@ def update_status():
 
     return redirect('/task')
 
+@app.route('/fav', methods = ['Post'])
+def daily_task():
+    username = session['username']
+    task = request.form['t1']
+    mycursor = mydb.cursor()
+
+    add_dailytasks_query = "SELECT fav FROM tasks WHERE username=%s AND description=%s"
+    mycursor.execute(add_dailytasks_query, (username, task))
+    current = mycursor.fetchone()
+
+    if current:
+        new_fav = 0 if current[0] == 1 else 1
+        update_dailytasks_query = "UPDATE tasks SET fav=%s WHERE username=%s AND description=%s"
+        mycursor.execute(update_dailytasks_query, (new_fav, username, task))
+        mydb.commit()
+
+    return redirect('/task')
+
+
+@app.route('/show')
+def show_daily():
+    if "username" in session:
+        username = session['username']
+        mycursor = mydb.cursor()
+        
+        show_dailytasks_query = "SELECT description, status, fav FROM tasks WHERE username =%s AND fav = 1"
+        mycursor.execute(show_dailytasks_query, (username,))
+        results = mycursor.fetchall()
+        tasks = [(r[0], r[1]) for r in results]
+        favs = {row[0]: row[2] for row in results}
+        
+        return render_template("daily.html", task = tasks, fav = favs, user = username)
+
 @app.route('/logout')
 def logout():
     session.pop("username", None)
@@ -164,37 +197,7 @@ def delete_account():
     flash("Account Was Deleted Successfully, SignUp To Create New", "info")
     return redirect('/')
 
-@app.route('/fav', methods = ['Post'])
-def daily_task():
-    username = session['username']
-    task = request.form['t1']
-    mycursor = mydb.cursor()
 
-    add_dailytasks_query = "SELECT fav FROM tasks WHERE username=%s AND description=%s"
-    mycursor.execute(add_dailytasks_query, (username, task))
-    current = mycursor.fetchone()
-
-    if current:
-        new_fav = 0 if current[0] == 1 else 1
-        update_dailytasks_query = "UPDATE tasks SET fav=%s WHERE username=%s AND description=%s"
-        mycursor.execute(update_dailytasks_query, (new_fav, username, task))
-        mydb.commit()
-
-    return redirect('/task')
-
-@app.route('/show')
-def show_daily():
-    if "username" in session:
-        username = session['username']
-        mycursor = mydb.cursor()
-        
-        show_dailytasks_query = "SELECT description, status, fav FROM tasks WHERE username =%s AND fav = 1"
-        mycursor.execute(show_dailytasks_query, (username,))
-        results = mycursor.fetchall()
-        tasks = [(r[0], r[1]) for r in results]
-        favs = {row[0]: row[2] for row in results}
-        
-        return render_template("daily.html", task = tasks, fav = favs, user = username)
 
 
 if __name__ == '__main__':
