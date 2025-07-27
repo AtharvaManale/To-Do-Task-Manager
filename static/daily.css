@@ -46,6 +46,10 @@ a{
     box-shadow: 5px 5px #F5F5F7;
     border-radius: 1rem;
 }
+.tasks{
+    margin: 100px 0 0 100px;
+    padding: 20px;
+}
 .content{
     margin: 100px 0 0 150px;
 }
@@ -79,7 +83,7 @@ a{
     cursor: pointer;
 }
 table{
-    margin-top: 50px;
+    margin-top: 25px;
     margin-left: 50px;
 }
 select{
