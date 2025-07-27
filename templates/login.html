@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Log in</h2>
+        <form action="/login" method="post">
+        <lable>Username</lable>
+        <input type="text" required id="i1" name="username">
+        <lable>Password</lable>
+        <div class="password">
+        <input type="password" required id="i2" name="password"><i class="fa-solid fa-eye" id="show"></i>
+        </div>
+        <button type="submit" id="login">Log in</button>
+        </form>
+        <a href='/'>Create an account</a>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages%}
+                    <p class="message">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}  
+    </div>  
+    <script>
+        let s = document.querySelector("#show");
+        let i2 = document.querySelector("#i2");
+        let show = false
+        s.addEventListener("click", () =>{
+            if( show === false){
+                i2.setAttribute("type", "text");
+                show = true;
+            }
+            else{
+                i2.setAttribute("type", "password");
+                show = false;
+            }
+        })
+    </script>
+</body>
+</html>

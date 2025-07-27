@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="{{ url_for('static', filename='signup.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form action="/sign" method="post" id="form">
+            <lable>Email</lable>
+            <input type="email" name="email" id="email" required>
+            <lable>Username</lable>
+            <input type="text" id="i1" name="username" required>
+            <lable>Password</lable>
+            <div class="password">
+                <input type="password" id="i2" name="password" required><i class="fa-solid fa-eye" id="show"></i>
+            </div>
+            <lable>Confirm Password</lable>
+            <div class="password">
+                <input type="password" id="i3" name="cpassword" required><i class="fa-solid fa-eye" id="show1"></i>
+            </div>
+            <button type="submit" id="signup">Signup</button>
+        </form>
+        <a href='/l'>Already have an account</a>
+        <p id="error"></p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+        <p class="message">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <script>
+        let s = document.querySelector("#show");
+        let i2 = document.querySelector("#i2");
+        let show = false;
+        s.addEventListener("click", () => {
+            if (show === false) {
+                i2.setAttribute("type", "text");
+                show = true;
+            }
+            else {
+                i2.setAttribute("type", "password");
+                show = false;
+            }
+        });
+        let s1 = document.querySelector("#show1");
+        let i3 = document.querySelector("#i3");
+        let show1 = false;
+        s1.addEventListener("click", () => {
+            if (show1 === false) {
+                i3.setAttribute("type", "text");
+                show1 = true
+            }
+            else {
+                i3.setAttribute("type", "password");
+                show1 = false;
+            }
+        });
+        let form = document.querySelector("#form");
+        form.addEventListener("submit", (f) => {
+            let s_value = document.querySelector("#i2").value;
+            let s1_value = document.querySelector("#i3").value;
+            let msg = document.querySelector("#error");
+
+            if (s_value !== s1_value){
+                msg.innerHTML = "Passwords do not match. Please confirm correctly.";
+                f.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

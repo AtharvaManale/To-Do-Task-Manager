@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='daily.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+    <div class="part1">
+        <div class="navbar">
+            <div class="home"><a href='/home'>
+                    <h3><i class="fa-solid fa-house"></i> Home</h3>
+                </a></div>
+            <div class="view"><a href='/task'>
+                    <h3><i class="fa-solid fa-list-check"></i> Your Tasks</h3>
+                </a></div>
+            <div class="fav"><a href='/show'>
+                    <h3><i class="fa-regular fa-star"></i> Daily Tasks</h3>
+                </a></div>
+        </div>
+        <div class="accounts">
+            <h3><i class="fa-solid fa-id-card"></i> {{user}}</h3>
+            <div class="up">
+                <a href='/logout'><h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3></a>
+                <a href='/delete_account' id="delete_account"><h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3></a>
+            </div>
+        </div>
+    </div>
+    <div class="part2">
+        <div class="tasks">
+            <table>
+                {% for t, status in task %}
+                <tr>
+                    <td>
+                        <form action="/fav" method="post">
+                            <input type="hidden" name="t1" value="{{ t }}">
+                            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                            <i class="fa-solid fa-star"style="color: {{ 'gold' if fav[t] else 'gray' }};"></i>
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <p style="margin-left: 10px;">{{ t }}</p>
+                    </td>
+
+                    <td>
+                        <i class="fa-solid fa-face-frown" id="dot1"style="color: red; display: {{ 'inline' if status == 'Incomplete' else 'none' }}; margin-left: 20px;"></i>
+                        <i class="fa-solid fa-face-smile" id="dot"style="color: green; display: {{ 'inline' if status == 'Complete' else 'none' }}; margin-left: 20px;"></i>
+                    </td>
+
+                    <td>
+                        <form action="/update_status" method="post">
+                            <input type="hidden" name="t1" value="{{ t }}">
+                            <select name="status" id="status" onchange="this.form.submit()">
+                                <option value="Incomplete"{% if status=='Incomplete' %}selected{% endif %}>Incomplete</option>
+                                <option value="Complete"{% if status=='Complete' %}selected{% endif %}>Complete</option>
+                            </select>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="t1" value="{{ t }}">
+                            <button id="delete" type="submit">
+                                <i class="fa-solid fa-trash"></i></i> Delete </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+            <p class="message">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <script>
+        let da = document.querySelector("#delete_account");
+        da.addEventListener("click", ()=>{
+            confirm("Are Sure You Want To Delete Your Account");
+        });
+    </script>
+</body>
+</html>

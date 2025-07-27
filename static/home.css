@@ -1,0 +1,92 @@
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;;
+}
+body{
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: #fff;
+}
+.part1{
+    height: 92vh;
+    width: 50vmin;
+    border-radius: 0.5rem 2rem 2rem 0.5rem;
+    background-color: #7e7e83;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.part2{
+    height: 92vh;
+    width: 99%;
+    background-color: #F5F5F7;
+    border-radius: 2rem 0.5rem 0.5rem 2rem;
+    padding: 20px;
+    color: #1D1D1F;
+}
+.home, .view, .fav{
+    text-decoration: none;
+    color: #F5F5F7;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 50px;
+    transition: all 1s ease;
+    width: 150px;
+}
+a{
+    text-decoration: none;
+    color: #F5F5F7;
+}
+.navbar{
+    padding-left: 25px;
+    margin-top: 200px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.accounts{
+    padding-left: 25px;
+    margin-top: 275px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.content{
+    margin: 200px 0 0 300px;
+}
+.content1{
+    font-size: 100px;
+    transition: all 0.5s ease;
+}
+.content2{
+    font-size: 20px;
+    margin-left: 10px;
+    transition: all 0.5s ease;
+}
+.home:hover, .view:hover, .fav:hover, .accounts:hover{
+    transform: translateY(-5px);
+    box-shadow: 5px 5px #F5F5F7;
+    border-radius: 1rem;
+}
+.content1:hover, .content2:hover{
+    transform: translateY(-10px);
+}
+.up{
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background-color: inherit;
+    min-width: 257px;
+    box-shadow: 5px #F5F5F7;
+    z-index: 1;
+}
+.up a, .up a h3{
+    text-decoration: none;
+    color: #F5F5F7;
+    transition: all 0.5s ease;
+}
+.accounts:hover .up{
+    display: inline;
+}
+.up h3:hover{
+    transform: translateY(-5px);
+}
