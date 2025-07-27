@@ -179,6 +179,9 @@ def show_daily():
         tasks = [(r[0], r[1]) for r in results]
         favs = {row[0]: row[2] for row in results}
 
+        if not results:
+            flash("No daily tasks present to work on...")
+
         mycursor.close()
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
