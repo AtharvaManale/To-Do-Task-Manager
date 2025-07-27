@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request, session, flash
 import mysql.connector
 from dotenv import load_dotenv
 import os
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 load_dotenv()
 
@@ -30,22 +30,22 @@ def validate_info():
     password = request.form['password']
     mycursor = mydb.cursor()
 
-    check_account_query = "SELECT * FROM login WHERE email=%s AND username=%s AND password=%s"
-    mycursor.execute(check_account_query, (email, username, password))
+    check_account_query = "SELECT * FROM login WHERE email=%s OR username=%s"
+    mycursor.execute(check_account_query, (email, username))
     user = mycursor.fetchone()
 
     if user:
         flash("This Account Already Exist!")
         return redirect('/')
     else:
-        session['email'] = email
+        hashed_password = generate_password_hash(password)
+
         create_account_query = "INSERT INTO login(email, username, password) VALUE(%s, %s, %s)"
-        mycursor.execute(create_account_query, (email, username, password))
+        mycursor.execute(create_account_query, (email, username, hashed_password))
         mydb.commit()
-        if "email" in session:
-            email = session['email']
-            flash("Account Was Created Successfully, Login To Continue", "info")
-        session.pop("email", None)
+        mycursor.close()
+
+        flash("Account Was Created Successfully, Login To Continue", "info")
         return redirect('/l')
     
 @app.route('/l')
@@ -58,11 +58,12 @@ def validate_login():
     password = request.form['password']
     mycursor = mydb.cursor()
 
-    verify_account_query = "SELECT username, password FROM login WHERE username=%s AND password=%s"
-    mycursor.execute(verify_account_query, (username, password))
+    verify_account_query = "SELECT username, password FROM login WHERE username=%s"
+    mycursor.execute(verify_account_query, (username,))
     user = mycursor.fetchone()
-    
-    if user:
+    mycursor.close()
+
+    if user and check_password_hash(user[2], password):
         session['username'] = username
         return redirect('/home')
     else:
@@ -88,6 +89,7 @@ def tasks():
         results = mycursor.fetchall() 
         tasks = [(r[0], r[1]) for r in results]# it creates a list of tuples as tasks
         favs = {row[0]: row[2] for row in results} #it creates dictionary eith task as key and fav as value
+        mycursor.close()
 
         if not tasks:
             flash("No task present to work on...")
@@ -105,7 +107,8 @@ def add():
     select_tasks_query = "SELECT description, status, fav FROM tasks WHERE username=%s AND description=%s"
     mycursor.execute(select_tasks_query, (username, task))
     exist = mycursor.fetchone()
-    
+    mycursor.close()
+
     if exist:
         flash("This task is already present")
         
@@ -125,6 +128,7 @@ def delete():
     delete_task_query = "DELETE FROM tasks WHERE username=%s AND description=%s"
     mycursor.execute(delete_task_query, (username, t1))
     mydb.commit()
+    mycursor.close()
 
     return redirect('/task')
 
@@ -138,6 +142,7 @@ def update_status():
     update_status_query = "UPDATE tasks SET status = %s WHERE username = %s AND description = %s"
     mycursor.execute(update_status_query, (status, username, task))
     mydb.commit()
+    mycursor.close()
 
     return redirect('/task')
 
@@ -157,6 +162,8 @@ def daily_task():
         mycursor.execute(update_dailytasks_query, (new_fav, username, task))
         mydb.commit()
 
+    mycursor.close()
+
     return redirect('/task')
 
 
@@ -171,7 +178,8 @@ def show_daily():
         results = mycursor.fetchall()
         tasks = [(r[0], r[1]) for r in results]
         favs = {row[0]: row[2] for row in results}
-        
+        mycursor.close()
+
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
 @app.route('/logout')
@@ -191,13 +199,12 @@ def delete_account():
     delete_alltasks_query = "DELETE FROM tasks WHERE username=%s"
     mycursor.execute(delete_alltasks_query, (username,))
     mydb.commit()
-
+    
+    mycursor.close()
     session.pop("username", None)
     
     flash("Account Was Deleted Successfully, SignUp To Create New", "info")
     return redirect('/')
-
-
 
 
 if __name__ == '__main__':
