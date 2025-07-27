@@ -182,6 +182,25 @@ def show_daily():
         mycursor.close()
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
+@app.route('/remove', methods=['Post'])
+def remove_dailytask():
+    username = session['username']
+    task = request.form['t1']
+    mycursor = mydb.cursor()
+    
+    access_dailytasks_query = "SELECT fav FROM tasks WHERE username=%s AND description=%s"
+    mycursor.execute(access_dailytasks_query, (username, task))
+    current = mycursor.fetchone()
+
+    if current:
+        new_fav = 0 
+        remove_dailytask_query = "UPDATE tasks SET fav = %s WHERE username = %s AND description = %s"
+        mycursor.execute(remove_dailytask_query, (new_fav, username, task))
+        mydb.commit()
+    
+    mycursor.close()
+    return redirect('/show')
+
 @app.route('/logout')
 def logout():
     session.pop("username", None)
