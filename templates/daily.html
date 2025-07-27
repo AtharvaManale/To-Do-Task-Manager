@@ -36,7 +36,7 @@
                     <td>
                         <form action="/fav" method="post">
                             <input type="hidden" name="t1" value="{{ t }}">
-                            <button type="submit" id="daily_tasks"><p id="p">add to daily_tasks</p>
+                            <button type="submit" id="daily_tasks"><p id="p">remove from daily_tasks</p>
                             <i class="fa-solid fa-star"style="color: {{ 'gold' if fav[t] else 'gray' }};"></i>
                             </button>
                         </form>
