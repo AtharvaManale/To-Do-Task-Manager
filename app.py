@@ -58,7 +58,7 @@ def validate_login():
     password = request.form['password']
     mycursor = mydb.cursor()
 
-    verify_account_query = "SELECT username, password FROM login WHERE username=%s"
+    verify_account_query = "SELECT * FROM login WHERE username=%s"
     mycursor.execute(verify_account_query, (username,))
     user = mycursor.fetchone()
     mycursor.close()
@@ -107,7 +107,7 @@ def add():
     select_tasks_query = "SELECT description, status, fav FROM tasks WHERE username=%s AND description=%s"
     mycursor.execute(select_tasks_query, (username, task))
     exist = mycursor.fetchone()
-    mycursor.close()
+    
 
     if exist:
         flash("This task is already present")
@@ -116,7 +116,8 @@ def add():
         add_task_query = "INSERT INTO tasks (username, description) VALUES(%s, %s)"
         mycursor.execute(add_task_query, (username, task))
         mydb.commit()
-
+    
+    mycursor.close()
     return redirect('/task')
 
 @app.route('/delete', methods = ['POST'])
@@ -163,7 +164,6 @@ def daily_task():
         mydb.commit()
 
     mycursor.close()
-
     return redirect('/task')
 
 
@@ -178,8 +178,8 @@ def show_daily():
         results = mycursor.fetchall()
         tasks = [(r[0], r[1]) for r in results]
         favs = {row[0]: row[2] for row in results}
-        mycursor.close()
 
+        mycursor.close()
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
 @app.route('/logout')

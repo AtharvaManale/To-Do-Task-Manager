@@ -76,6 +76,7 @@ a{
     width: 100px;
     color: red;
     margin-left: 20px;
+    cursor: pointer;
 }
 table{
     margin-top: 50px;
@@ -84,5 +85,17 @@ table{
 select{
     border: none;
     border-radius: 10px;
-    width: 150px;
+    width: 130px;
+    cursor: pointer;
+}
+#daily_tasks{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+#p{
+    display: none;
+}
+#daily_tasks:hover #p{
+    display: inline;
 }
