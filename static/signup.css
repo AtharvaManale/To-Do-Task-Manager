@@ -47,3 +47,97 @@ a{
     margin-top: 10px;
     font-size: 1rem;
 }
+
+@media (max-width: 1440px){
+    .container{
+        height: 46dvh;
+        width: 45dvb;
+        margin: 250px 0 0 470px;
+        padding: 20px;
+    }
+    #signup{
+        height: 5dvh;
+        width: 10dvb;
+    }
+    #email, #i1, #i2, #i3{
+        height: 35px;
+        width: 450px;
+    }
+}
+
+@media (max-width: 1024px){
+    .container{
+        height: 57dvh;
+        width: 55vmin;
+        margin: 125px 0 0 225px;
+        padding: 20px;
+    }
+    #signup{
+        height: 5dvh;
+        width: 15dvb;
+    }
+    #email,#i1,#i2,#i3{
+        height: 35px;
+        width: 420px;
+    }
+}
+
+@media (max-width: 768px){
+    .container{
+        height: 65dvh;
+        width: 60dvb;
+        margin: 100px 0 0 150px;
+        padding: 20px;
+    }
+    #signup {
+        color: #fff;
+        background-color: #1D1D1F;
+        cursor: pointer;
+        height: 5vmin;
+        width: 15vmin;
+        border-radius: 1rem;
+        margin-top: 15px;
+    }
+    #email, #i1, #i2, #i3{
+        height: 25px;
+        width: 350px;
+    }
+}
+
+@media (max-width: 476px){
+    .container{
+        height: 60dvh;
+        width: 60dvb;
+        margin: 100px 0 0 0;
+        padding: 20px;
+        font-size: 12px;
+    }
+    #signup {
+        height: 10vmin;
+        width: 20vmin;
+    }
+    #email, #i1, #i2, #i3{
+        height: 25px;
+        width: 350px;
+    }
+}
+
+@media (max-width: 356px){
+    .container{
+        height: 60dvh;
+        width: 60dvb;
+        margin: 150px 0 0 0;
+        padding: 20px;
+
+    }
+    #signup{
+        height: 13vmin;
+        width: 25vmin;
+        border-radius: 1rem;
+        margin-top: 15px;
+    }
+    #email, #i1, #i2, #i3 {
+        height: 25px;
+        width: 350px;
+    }
+}
