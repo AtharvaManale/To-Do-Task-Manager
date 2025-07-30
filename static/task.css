@@ -127,3 +127,67 @@ select{
 #daily_tasks:hover #p{
     display: block;
 }
+
+
+@media (max-width: 1024px) {
+  .container {
+    height: 40vh;
+    width: 60vmin;
+    margin: 200px 0 230px;
+    padding: 20px;
+  }
+  #i1, #i2 {
+    height: 35px;
+    width: 450px;
+  }
+  a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 47vh;
+    width: 60vmin;
+    margin: 150px 0 150px;
+  }
+  #i1, #i2 {
+    height: 25px;
+    width: 350px;
+  }
+  a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 476px) {
+  .container {
+    height: 50vh;
+    width: 60vh;
+    margin: 125px 0 0;
+    padding: 20px;
+  }
+  #i1, #i2 {
+    height: 25px;
+    width: 350px;
+  }
+  a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 356px) {
+  .container {
+    height: 50vh;
+    width: 60vh;
+    margin: 250px 0 0;
+    padding: 20px;
+  }
+  #i1, #i2 {
+    height: 25px;
+    width: 300px;
+  }
+  a {
+    font-size: 1rem;
+  }
+}
