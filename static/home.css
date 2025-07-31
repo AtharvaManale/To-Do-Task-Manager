@@ -89,6 +89,37 @@ a{
 .up h3:hover{
     transform: translateY(-5px);
 }
+
+
+@media (max-width: 1440px){
+    .navbar{
+        font-size: 25px;
+        margin-top: 240px;
+    }
+    .accounts{
+        margin-top: 355px;
+        font-size: 25px;
+    }
+    .view,.fav{
+      margin-top: 10px;
+      width: 200px;
+    }
+    .up{
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+    .content{
+        margin: 250px 0 0 250px;
+    }
+    .content1{
+        font-size: 110px;
+    }
+    .content2{
+        margin-top: 10px;
+        font-size: 30px;
+    }
+}
+
 @media (max-width: 456px){
     body{
         display: grid;
@@ -135,8 +166,8 @@ a{
         padding: 10px 15px 10px 10px;
     }
     .content{
-        height: 70vh;
-        margin: 150px 0 0 100px;
+        height: 60vh;
+        margin: 150px 0 0 50px;
     }
     .content1{
         font-size: 50px;
@@ -144,5 +175,7 @@ a{
     .content2{
         margin-top: 10px;
         font-size: 25px;
+        margin-left: 0;
     }
 }
+
