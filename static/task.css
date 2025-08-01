@@ -128,7 +128,43 @@ select{
     display: block;
 }
 
-
+@media (max-width: 1440px){
+    .navbar{
+        font-size: 25px;
+    }
+    .accounts{
+        margin-top: 360px;
+        font-size: 25px;
+    }
+    .view,.fav{
+      margin-top: 15px;
+      width: 200px;
+    }
+    .up{
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+    input{
+        height: 35px;
+        width: 650px;
+    }
+    #add{
+        height: 38px;
+        width: 80px;
+    }
+    table{
+        font-size: 20px;
+    }
+    #delete{
+        font-size: 17px;
+        margin-left: 30px;
+        width: 110px;
+    }
+    select{
+        font-size: 17px;
+        width: 160px;
+    }
+}
 
 @media (max-width: 456px){
       body{
@@ -156,17 +192,17 @@ select{
         padding-left: 0;
     }
     .home{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 75px;
     }
     .view{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 95px;
     }
     .fav{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 110px;
     }
