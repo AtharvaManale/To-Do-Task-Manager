@@ -133,6 +133,18 @@ select{
       font-size: 25px;
       margin-bottom: 30px;
     }
+    table{
+        font-size: 20px;
+    }
+    #delete{
+        font-size: 17px;
+        margin-left: 30px;
+        width: 110px;
+    }
+    select{
+        font-size: 17px;
+        width: 160px;
+    }
 }
 
 @media (max-width: 456px){
