@@ -151,17 +151,15 @@ a{
         width: 75px;
     }
     .view{
-        margin-left: 0;
-        margin-bottom: 5px;
+        margin: 0;
         width: 95px;
     }
     .fav{
-        margin-left: 0;
-        margin-bottom: 5px;
+        margin: 0;
         width: 110px;
     }
     .part2{
-        height: 100%;
+        height: 86.5vh;
         border-radius: 1rem 1rem 0 0;
         padding: 10px 15px 10px 10px;
     }

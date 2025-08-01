@@ -134,6 +134,7 @@ select{
       margin-bottom: 30px;
     }
     table{
+        margin-top: 70px;
         font-size: 20px;
     }
     #delete{
