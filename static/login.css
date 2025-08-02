@@ -46,14 +46,14 @@ a{
 
 @media (max-width: 1440px){
   .container{
-    height: 35vmin;
+    height: 40vmin;
     width: 55vmin;
     margin: 220px 0 0 430px;
     padding: 20px;
   }
   #i1,#i2{
-    height: 45px;
-    width: 550px;
+    height: 35px;
+    width: 450px;
   }
   a{
     font-size: 1.3rem;
@@ -63,14 +63,14 @@ a{
 
 @media (max-width: 1024px){
   .container{
-    height: 40dvh;
+    height: 49dvh;
     width: 60vmin;
-    margin: 200px 0 0 230px;
+    margin: 100px 0 0 330px;
     padding: 20px;
   }
   #i1,#i2{
-    height: 35px;
-    width: 450px;
+    height: 30px;
+    width: 350px;
   }
   a{
     font-size: 1rem;

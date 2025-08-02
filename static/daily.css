@@ -130,7 +130,7 @@ select{
       margin-bottom: 30px;
     }
     table{
-        margin-top: 70px;
+        margin-top: 50px;
         font-size: 20px;
     }
     #delete{
@@ -142,9 +142,13 @@ select{
         font-size: 17px;
         width: 160px;
     }
+    .message{
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
 }
 
-@media (max-width: 456px){
+@media (max-width: 576px){
         body{
         display: grid;
         grid-column:auto;
@@ -170,17 +174,17 @@ select{
         padding-left: 0;
     }
     .home{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 75px;
     }
     .view{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 95px;
     }
     .fav{
-        margin-left: 0;
+        margin: 0;
         margin-bottom: 5px;
         width: 110px;
     }

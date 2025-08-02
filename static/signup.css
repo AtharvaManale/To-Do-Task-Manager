@@ -50,9 +50,9 @@ a{
 
 @media (max-width: 1440px){
     .container{
-        height: 46dvh;
-        width: 45dvb;
-        margin: 250px 0 0 470px;
+        height: 52dvh;
+        width: 47dvb;
+        margin: 150px 0 0 500px;
         padding: 20px;
     }
     #signup{
@@ -61,24 +61,30 @@ a{
     }
     #email, #i1, #i2, #i3{
         height: 35px;
-        width: 450px;
+        width: 385px;
     }
 }
 
 @media (max-width: 1024px){
     .container{
-        height: 57dvh;
-        width: 55vmin;
-        margin: 125px 0 0 225px;
-        padding: 20px;
+        height: 65dvh;
+        width: 56vmin;
+        margin: 125px 0 0 325px;
+        padding: 15px;
     }
     #signup{
         height: 5dvh;
         width: 15dvb;
     }
     #email,#i1,#i2,#i3{
-        height: 35px;
-        width: 420px;
+        height: 30px;
+        width: 320px;
+    }
+    #s{
+        font-size: 20px;
+    }
+    *{
+        font-size: 13px;
     }
 }
 
