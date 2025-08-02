@@ -30,6 +30,13 @@
     </div>
     <div class="part2">
         <div class="tasks">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+            <p class="message">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <table>
                 {% for t, status in task %}
                 <tr>
@@ -71,13 +78,6 @@
                 </tr>
                 {% endfor %}
             </table>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages%}
-            <p class="message">{{message}}</p>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
         </div>
     </div>
     <script>

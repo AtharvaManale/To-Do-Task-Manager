@@ -166,7 +166,6 @@ def daily_task():
     mycursor.close()
     return redirect('/task')
 
-
 @app.route('/show')
 def show_daily():
     if "username" in session:
@@ -183,6 +182,7 @@ def show_daily():
             flash("No daily tasks present to work on...")
 
         mycursor.close()
+        flash("Here Your Go, Your Daily Tasks.")
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
 @app.route('/remove', methods=['Post'])
