@@ -120,7 +120,47 @@ a{
     }
 }
 
-@media (max-width: 456px){
+@media (max-width: 786px){
+    .part1{
+        height: 91vh;
+        padding: 20px 0 20px 20px;
+    }
+    .navbar{
+        margin-top: 150px;
+        font-size: 15px;
+        padding: 0;
+    }
+    .accounts{
+        font-size: 15px;
+        margin-top: 190px;
+        padding: 0;
+    }
+    .view,.fav{
+      margin-top: 0;
+      width: 150px;
+    }
+    .up{
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+    .part2{
+        height: 91vh;
+    }
+    .content{
+        margin: 200px 0 0 100px;
+    }
+    .content1{
+        font-size: 60px;
+    }
+    .content2{
+        margin: 5px 0 0 0;
+        font-size: 15px;
+    }
+
+}
+
+
+@media (max-width: 576px){
     body{
         display: grid;
         grid-column:auto;

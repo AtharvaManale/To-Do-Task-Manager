@@ -166,7 +166,7 @@ select{
     }
 }
 
-@media (max-width: 456px){
+@media (max-width: 576px){
       body{
         display: grid;
         grid-column:auto;

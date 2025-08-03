@@ -92,16 +92,16 @@ a{
   }
 }
 
-@media (max-width: 476px) {
+@media (max-width: 576px) {
   .container{
-    height: 50dvh;
-    width: 60dvh;
+    height: 45dvh;
+    width: 55dvh;
     margin: 125px 0 0 0;
     padding: 20px;
   }
   #i1, #i2 {
-    height: 25px;
-    width: 350px;
+    height: 15px;
+    width: 280px;
   }
   a{
     font-size: 1rem;
@@ -110,10 +110,11 @@ a{
 
 @media (max-width: 356px) {
   .container{
-    height: 50dvh;
+    height: 45dvh;
     width: 60dvh;
     margin: 250px 0 0 0;
     padding: 20px;
+    font-size: 10px;
   }
   #login{
     height: 7dvh;

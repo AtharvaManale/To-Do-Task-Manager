@@ -110,7 +110,7 @@ a{
     }
 }
 
-@media (max-width: 476px){
+@media (max-width: 576px){
     .container{
         height: 60dvh;
         width: 60dvb;
