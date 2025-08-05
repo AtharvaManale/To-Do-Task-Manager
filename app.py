@@ -108,7 +108,6 @@ def add():
     mycursor.execute(select_tasks_query, (username, task))
     exist = mycursor.fetchone()
     
-
     if exist:
         flash("This task is already present")
         
