@@ -7,7 +7,7 @@
     <title>Task Manager</title>
     <link href="{{ url_for('static', filename='home.css') }}" rel="stylesheet">
 </head>
-<body>
+<body><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="part1">
         <div class="navbar">
             <div class="home"><a href='/home'><h3><i class="fa-solid fa-house"></i> Home</h3></a></div>
@@ -18,7 +18,12 @@
             <h3><i class="fa-solid fa-id-card"></i> {{user}}</h3>
             <div class="up">
                 <a href='/logout'><h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3></a>
-                <a href='/delete_account' id="delete_account"><h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3></a>
+                <form action="/delete_account" method="post" id="delete_account_form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button id="delete_account" type="submit">
+                        <h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

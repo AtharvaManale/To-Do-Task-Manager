@@ -28,13 +28,19 @@
             <h3><i class="fa-solid fa-id-card"></i> {{user}}</h3>
             <div class="up">
                 <a href='/logout'><h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3></a>
-                <a href='/delete_account' id="delete_account"><h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3></a>
+                <form action="/delete_account" method="post" id="delete_account_form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button id="delete_account" type="submit">
+                        <h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
     <div class="part2">
         <div class="content">
             <form action="/add" method="post" id="f1">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="text" placeholder="Add Task..." name="task" required><button type="submit"id="add">Add</button>
             </form>
             <div class="tasks">
@@ -43,6 +49,7 @@
                     <tr>
                         <td>
                             <form action="/fav" method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="t1" value="{{ t }}">
                                 <button type="submit" id="daily_tasks"><p id="p">{% if fav[t] %}remove from daily_tasks{% else %}add to daily_tasks{% endif %}</p>
                                 <i class="fa-solid fa-star"style="color: {{ 'gold' if fav[t] else 'gray' }};"></i>
@@ -61,6 +68,7 @@
 
                         <td>
                             <form action="/update_status" method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="t1" value="{{ t }}">
                                 <select name="status" id="status" onchange="this.form.submit()">
                                     <option value="Incomplete"{% if status=='Incomplete' %}selected{% endif %}>Incomplete</option>
@@ -71,6 +79,7 @@
 
                         <td>
                             <form action="/delete" method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="t1" value="{{ t }}">
                                 <button id="delete" type="submit">
                                     <i class="fa-solid fa-trash"></i></i> Delete </button>

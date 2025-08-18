@@ -3,11 +3,14 @@ import mysql.connector
 from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf.csrf import CSRFProtect
 
 load_dotenv()
 
 app = Flask (__name__)
 app.secret_key = os.getenv("key")
+
+csrf = CSRFProtect(app)
 
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),

@@ -29,7 +29,7 @@ body{
     color: #F5F5F7;
     display: flex;
     flex-flow: row nowrap;
-    height: 50px;
+    height: 45px;
     transition: all 1s ease;
     width: 150px;
 }
@@ -37,15 +37,9 @@ a{
     text-decoration: none;
     color: #F5F5F7;
 }
-.navbar{
+.navbar, .accounts{
     padding-left: 25px;
-    margin-top: 200px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-}
-.accounts{
-    padding-left: 25px;
-    margin-top: 275px;
+    margin-top: 240px;
     cursor: pointer;
     transition: all 0.5s ease;
 }
@@ -78,10 +72,23 @@ a{
     box-shadow: 5px #F5F5F7;
     z-index: 1;
 }
-.up a, .up a h3{
+.up button, .up button h3{
+    background:none; 
+    border:none; 
+    cursor:pointer;
     text-decoration: none;
     color: #F5F5F7;
     transition: all 0.5s ease;
+    font-size: large;
+}
+.up a h3, .up a{
+    background:none; 
+    border:none; 
+    cursor:pointer;
+    text-decoration: none;
+    color: #F5F5F7;
+    transition: all 0.5s ease;
+    margin-bottom: 0;
 }
 .accounts:hover .up{
     display: inline;

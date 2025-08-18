@@ -59,10 +59,23 @@ a{
     box-shadow: 5px #F5F5F7;
     z-index: 1;
 }
-.up a, .up a h3{
+.up button, .up button h3{
+    background:none; 
+    border:none; 
+    cursor:pointer;
     text-decoration: none;
     color: #F5F5F7;
     transition: all 0.5s ease;
+    font-size: large;
+}
+.up a h3, .up a{
+    background:none; 
+    border:none; 
+    cursor:pointer;
+    text-decoration: none;
+    color: #F5F5F7;
+    transition: all 0.5s ease;
+    margin-bottom: 0;
 }
 .accounts:hover .up{
     display: inline;
