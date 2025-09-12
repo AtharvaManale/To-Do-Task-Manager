@@ -102,7 +102,33 @@
         let da = document.querySelector("#delete_account");
         da.addEventListener("click", ()=>{
             confirm("Are Sure You Want To Delete Your Account");
-        })
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const accountBtn = document.querySelector(".accounts");
+        const dropdown = document.querySelector(".up");
+
+        if (window.matchMedia("(max-width: 576px)").matches) {
+            accountBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                dropdown.style.display = 
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+        }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const accountBtn = document.querySelector(".accounts");
+        const dropdown = document.querySelector(".up");
+
+        if (window.matchMedia("(max-width: 786px)").matches) {
+            accountBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                dropdown.style.display = 
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+        }
+        });
     </script>
 </body>
 

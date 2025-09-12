@@ -179,6 +179,72 @@ select{
     }
 }
 
+@media (max-width: 786px){
+    .part1{
+        height: 91vh;
+        padding: 20px 0 20px 20px;
+        width: 25vh;
+    }
+    .navbar{
+        margin-top: 190px;
+        font-size: 15px;
+        padding: 0;
+    }
+    .accounts{
+        font-size: 15px;
+        margin-top: 215px;
+        padding: 0;
+    }
+    .view,.fav{
+      margin-top: 0;
+      width: 150px;
+    }
+    .up{
+      margin-bottom: 5px;
+    }
+    .up h3{
+        font-size: small;
+    }
+    #delete_account h3{
+        margin-left: -2px;
+        font-size: small;
+    }
+    .part2{
+        height: 91vh;
+    }
+    .content{
+        margin: 100px 0 0 25px;
+        font-size: smaller;
+    }
+    .content1{
+        font-size: 60px;
+    }
+    .content2{
+        margin: 5px 0 0 0;
+        font-size: 15px;
+    }
+    input{
+        width: 400px;
+        height: 30px;
+    }
+    #add{
+        width: 75px;
+        height: 30px;
+    }
+    table{
+        margin-top: 25px;
+        font-size: small;
+    }
+    #delete, #status{
+        font-size: small;
+    }
+    .home:hover, .view:hover, .fav:hover, .accounts:hover{
+        transform: translateY(0);
+        box-shadow: 0 0 #F5F5F7;
+        border-radius: 0;
+    }
+}
+
 @media (max-width: 576px){
       body{
         display: grid;
@@ -255,5 +321,39 @@ select{
     }
     #dot,#dot1{
         margin-left: 20px;
+    }
+    .up{
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #7e7e83;
+        min-width: 257px;
+        box-shadow: 0px 4px 6px grey;
+        z-index: 10;
+    }
+    .up h3{
+        color: #F5F5F7;
+    }
+    .accounts:hover .up{
+        margin-top: 10px;
+        display: block;
+    }
+    .up a h3, .up a{
+        color: #1D1D1F;
+        font-size: small;
+    }
+    .up button, .up button h3{
+        margin-left: -2px;
+        color: #1D1D1F;
+        font-size: small;
+    }
+    .up h3:hover{
+        transform: translateY(0);
+    }
+    .home:hover, .view:hover, .fav:hover, .accounts:hover{
+        transform: translateY(0);
+        box-shadow: 0 0 #F5F5F7;
+        border-radius: 0;
     }
 }

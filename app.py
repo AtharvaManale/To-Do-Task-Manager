@@ -91,7 +91,7 @@ def tasks():
         mycursor.execute(show_tasks_query, (username,))
         results = mycursor.fetchall() 
         tasks = [(r[0], r[1]) for r in results]# it creates a list of tuples as tasks
-        favs = {row[0]: row[2] for row in results} #it creates dictionary eith task as key and fav as value
+        favs = {r1[0]: r1[2] for r1 in results} #it creates dictionary with task as key and fav as value
         mycursor.close()
 
         if not tasks:
@@ -184,7 +184,8 @@ def show_daily():
             flash("No daily tasks present to work on...")
 
         mycursor.close()
-        flash("Here Your Go, Your Daily Tasks.")
+        if results:
+            flash("Here You Go, Your Daily Tasks.")
         return render_template("daily.html", task = tasks, fav = favs, user = username)
 
 @app.route('/remove', methods=['Post'])

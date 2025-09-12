@@ -131,15 +131,16 @@ a{
     .part1{
         height: 91vh;
         padding: 20px 0 20px 20px;
+        width: 25vh;
     }
     .navbar{
-        margin-top: 150px;
+        margin-top: 190px;
         font-size: 15px;
         padding: 0;
     }
     .accounts{
         font-size: 15px;
-        margin-top: 190px;
+        margin-top: 215px;
         padding: 0;
     }
     .view,.fav{
@@ -147,8 +148,14 @@ a{
       width: 150px;
     }
     .up{
-      font-size: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
+    }
+    .up h3{
+        font-size: small;
+    }
+    #delete_account h3{
+        margin-left: -2px;
+        font-size: small;
     }
     .part2{
         height: 91vh;
@@ -163,7 +170,11 @@ a{
         margin: 5px 0 0 0;
         font-size: 15px;
     }
-
+    .home:hover, .view:hover, .fav:hover, .accounts:hover{
+        transform: translateY(0);
+        box-shadow: 0 0 #F5F5F7;
+        border-radius: 0;
+    }
 }
 
 
@@ -221,6 +232,40 @@ a{
         margin-top: 10px;
         font-size: 25px;
         margin-left: 0;
+    }
+   .up{
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #7e7e83;
+        min-width: 257px;
+        box-shadow: 0px 4px 6px grey;
+        z-index: 10;
+    }
+    .up h3{
+        color: #F5F5F7;
+    }
+    .accounts:hover .up{
+        margin-top: 10px;
+        display: block;
+    }
+    .up a h3, .up a{
+        color: #1D1D1F;
+        font-size: small;
+    }
+    .up button, .up button h3{
+        margin-left: -2px;
+        color: #1D1D1F;
+        font-size: small;
+    }
+    .up h3:hover{
+        transform: translateY(0);
+    }
+    .home:hover, .view:hover, .fav:hover, .accounts:hover{
+        transform: translateY(0);
+        box-shadow: 0 0 #F5F5F7;
+        border-radius: 0;
     }
 }
 
