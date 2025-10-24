@@ -7,7 +7,7 @@ body{
 .container{
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     height: 65vmin;
     width: 55vmin;
     margin: 125px 0 0 550px;
@@ -48,12 +48,31 @@ a{
     font-size: 1rem;
 }
 
+@media (max-width:2756px){
+    .container{
+        margin: 200px 0 0 900px;
+        height: 55dvh;
+        width: 40dvb;
+        padding: 20px;
+        font-size: xx-large;
+    }
+    #signup{
+        height: 4dvh;
+        width: 8dvb;
+        font-size: large;
+    }
+    #email, #i1, #i2, #i3{
+        height: 55px;
+        width: 500px;
+    }
+}
+
 @media (max-width: 1440px){
     .container{
-        height: 52dvh;
-        width: 47dvb;
+        height: 60dvh;
+        width: 43dvb;
         margin: 150px 0 0 500px;
-        padding: 20px;
+        font-size: large;
     }
     #signup{
         height: 5dvh;
@@ -61,7 +80,7 @@ a{
     }
     #email, #i1, #i2, #i3{
         height: 35px;
-        width: 385px;
+        width: 300px;
     }
 }
 

@@ -43,13 +43,30 @@ a{
   margin-top: 0.75rem;
   color: green;
 }
+@media (max-width: 2576px){
+  .container{
+    height: 33vmin;
+    width: 30vmin;
+    margin: 400px 0 0 950px;
+    padding: 20px;
+    font-size: xx-large;
+  }
+  #i1,#i2{
+    height: 35px;
+    width: 300px;
+  }
+  a{
+    font-size: 1.5rem;
+  }
+}
 
 @media (max-width: 1440px){
   .container{
-    height: 40vmin;
-    width: 55vmin;
+    height: 43vmin;
+    width: 63vmin;
     margin: 220px 0 0 430px;
     padding: 20px;
+    font-size: large;
   }
   #i1,#i2{
     height: 35px;
@@ -60,13 +77,13 @@ a{
   }
 }
 
-
 @media (max-width: 1024px){
   .container{
     height: 49dvh;
     width: 60vmin;
     margin: 100px 0 0 330px;
     padding: 20px;
+    font-size: large;
   }
   #i1,#i2{
     height: 30px;
@@ -82,6 +99,8 @@ a{
     height: 47dvh;
     width: 60vmin;
     margin: 150px 0 0 150px;
+    padding: 20px;
+    font-size: large;
   }
   #i1, #i2 {
     height: 25px;
@@ -98,6 +117,7 @@ a{
     width: 55dvh;
     margin: 125px 0 0 0;
     padding: 20px;
+    font-size: large;
   }
   #i1, #i2 {
     height: 15px;
