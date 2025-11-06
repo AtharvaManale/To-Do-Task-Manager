@@ -128,19 +128,19 @@ select{
 
 @media (max-width: 1440px){
     .navbar{
-        font-size: 25px;
+        font-size: 20px;
     }
     .accounts{
-        margin-top: 360px;
+        margin-top: 300px;
         font-size: 25px;
     }
     .view,.fav{
-      margin-top: 15px;
+        margin-top: 15px;
         width: 200px;
     }
     .up{
-      font-size: 25px;
-      margin-bottom: 30px;
+        font-size: 20px;
+        margin-bottom: 30px;
     }
     table{
         margin-top: 50px;

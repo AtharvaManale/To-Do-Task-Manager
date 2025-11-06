@@ -100,19 +100,19 @@ a{
 
 @media (max-width: 1440px){
     .navbar{
-        font-size: 25px;
+        font-size: 20px;
         margin-top: 240px;
     }
     .accounts{
-        margin-top: 355px;
+        margin-top: 300px;
         font-size: 25px;
     }
     .view,.fav{
-      margin-top: 10px;
+      margin-top: 15px;
       width: 200px;
     }
     .up{
-      font-size: 25px;
+      font-size: 20px;
       margin-bottom: 30px;
     }
     .content{

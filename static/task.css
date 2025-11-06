@@ -143,10 +143,10 @@ select{
 
 @media (max-width: 1440px){
     .navbar{
-        font-size: 25px;
+        font-size: 20px;
     }
     .accounts{
-        margin-top: 360px;
+        margin-top: 300px;
         font-size: 25px;
     }
     .view,.fav{

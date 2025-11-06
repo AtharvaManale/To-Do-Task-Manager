@@ -43,22 +43,7 @@ a{
   margin-top: 0.75rem;
   color: green;
 }
-@media (max-width: 2576px){
-  .container{
-    height: 33vmin;
-    width: 30vmin;
-    margin: 400px 0 0 950px;
-    padding: 20px;
-    font-size: xx-large;
-  }
-  #i1,#i2{
-    height: 35px;
-    width: 300px;
-  }
-  a{
-    font-size: 1.5rem;
-  }
-}
+
 
 @media (max-width: 1440px){
   .container{
