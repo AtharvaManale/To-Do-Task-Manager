@@ -247,7 +247,7 @@ def show_daily():
         return redirect('/l')
 
 @app.route('/update_status2', methods=['POST'])
-def update_status2():
+def update_status_new():
     if "username" in session:
         username = session['username']
         task = request.form['t1']
