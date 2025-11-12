@@ -65,7 +65,7 @@
                     </td>
 
                     <td>
-                        <form action="/update_status" method="post">
+                        <form action="/update_status_" method="post">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="t1" value="{{ t }}">
                             <select name="status" id="status" onchange="this.form.submit()">

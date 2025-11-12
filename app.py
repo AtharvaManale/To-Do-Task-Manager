@@ -60,7 +60,7 @@ def validate_info():
 
         flash("Account Was Created Successfully, Login To Continue", "info")
         return redirect('/l')
-    
+
 @app.route('/l')
 def login():
     return render_template("login.html")
@@ -105,7 +105,7 @@ def tasks():
         mycursor.execute(show_tasks_query, (username,))
         results = mycursor.fetchall() 
         tasks = [(r[0], r[1]) for r in results]# it creates a list of tuples as tasks
-        favs = {r1[0]: r1[2] for r1 in results} #it creates dictionary with task as key and fav as value
+        favs = {r1[0]: r1[2] for r1 in results}# it creates dictionary with task as key and fav as value
         mycursor.close()
 
         if not tasks:
@@ -181,6 +181,25 @@ def update_status():
         flask("First Login To Access Features.", "info")
         return redirect('/l')
 
+
+@app.route('/update_status', methods=['POST', 'PUT'])
+def update_status():
+    if "username" in session:
+        username = session['username']
+        task = request.form['t1']
+        status = request.form['status']
+        mycursor = mydb.cursor()
+
+        update_status_query = "UPDATE tasks SET status = %s WHERE username = %s AND description = %s"
+        mycursor.execute(update_status_query, (status, username, task))
+        mydb.commit()
+        mycursor.close()
+
+        return redirect('/task')
+    else:
+        flask("First Login To Access Features.", "info")
+        return redirect('/l')
+
 @app.route('/fav', methods = ['Post'])
 def daily_task():
     if "username" in session:
@@ -225,6 +244,24 @@ def show_daily():
         return render_template("daily.html", task = tasks, fav = favs, user = username)
     else:
         flask("First Login To Access Features.")
+        return redirect('/l')
+
+@app.route('/update_status2', methods=['POST'])
+def update_status2():
+    if "username" in session:
+        username = session['username']
+        task = request.form['t1']
+        status = request.form['status']
+        mycursor = mydb.cursor()
+
+        update_status_query = "UPDATE tasks SET status = %s WHERE username = %s AND description = %s"
+        mycursor.execute(update_status_query, (status, username, task))
+        mydb.commit()
+        mycursor.close()
+
+        return redirect('/show')
+    else:
+        flask("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/remove', methods=['Post'])
