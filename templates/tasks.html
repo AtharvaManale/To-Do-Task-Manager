@@ -27,7 +27,9 @@
         <div class="accounts">
             <h3><i class="fa-solid fa-id-card"></i> {{user}}</h3>
             <div class="up">
-                <a href='/logout'><h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3></a>
+                <a href='/logout'>
+                    <h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3>
+                </a>
                 <form action="/delete_account" method="post" id="delete_account_form">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button id="delete_account" type="submit">
@@ -41,7 +43,8 @@
         <div class="content">
             <form action="/add" method="post" id="f1">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <input type="text" placeholder="Add Task..." name="task" required><button type="submit"id="add">Add</button>
+                <input type="text" placeholder="Add Task..." name="task" required><button type="submit"
+                    id="add">Add</button>
             </form>
             <div class="tasks">
                 <table>
@@ -51,8 +54,10 @@
                             <form action="/fav" method="post">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="t1" value="{{ t }}">
-                                <button type="submit" id="daily_tasks"><p id="p">{% if fav[t] %}remove from daily_tasks{% else %}add to daily_tasks{% endif %}</p>
-                                <i class="fa-solid fa-star"style="color: {{ 'gold' if fav[t] else 'gray' }};"></i>
+                                <button type="submit" id="daily_tasks">
+                                    <p id="p">{% if fav[t] %}remove from daily_tasks{% else %}add to daily_tasks{% endif
+                                        %}</p>
+                                    <i class="fa-solid fa-star" style="color: {{ 'gold' if fav[t] else 'gray' }};"></i>
                                 </button>
                             </form>
                         </td>
@@ -62,8 +67,10 @@
                         </td>
 
                         <td>
-                            <i class="fa-solid fa-face-frown" id="dot1"style="color: red; display: {{ 'inline' if status == 'Incomplete' else 'none' }}; margin-left: 25px;"></i>
-                            <i class="fa-solid fa-face-smile" id="dot"style="color: green; display: {{ 'inline' if status == 'Complete' else 'none' }}; margin-left: 25px;"></i>
+                            <i class="fa-solid fa-face-frown" id="dot1"
+                                style="color: red; display: {{ 'inline' if status == 'Incomplete' else 'none' }}; margin-left: 25px;"></i>
+                            <i class="fa-solid fa-face-smile" id="dot"
+                                style="color: green; display: {{ 'inline' if status == 'Complete' else 'none' }}; margin-left: 25px;"></i>
                         </td>
 
                         <td>
@@ -71,8 +78,10 @@
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="t1" value="{{ t }}">
                                 <select name="status" id="status" onchange="this.form.submit()">
-                                    <option value="Incomplete"{% if status=='Incomplete' %}selected{% endif %}>Incomplete</option>
-                                    <option value="Complete"{% if status=='Complete' %}selected{% endif %}>Complete</option>
+                                    <option value="Incomplete" {% if status=='Incomplete' %}selected{% endif %}>
+                                        Incomplete</option>
+                                    <option value="Complete" {% if status=='Complete' %}selected{% endif %}>Complete
+                                    </option>
                                 </select>
                             </form>
                         </td>
@@ -88,46 +97,46 @@
                     </tr>
                     {% endfor %}
                 </table>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages%}
-                <p class="message">{{message}}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
             </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages%}
+            <p class="message">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
         </div>
     </div>
     <script>
         let da = document.querySelector("#delete_account");
-        da.addEventListener("click", ()=>{
+        da.addEventListener("click", () => {
             confirm("Are Sure You Want To Delete Your Account");
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-        const accountBtn = document.querySelector(".accounts");
-        const dropdown = document.querySelector(".up");
+            const accountBtn = document.querySelector(".accounts");
+            const dropdown = document.querySelector(".up");
 
-        if (window.matchMedia("(max-width: 576px)").matches) {
-            accountBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                dropdown.style.display = 
-                    dropdown.style.display === "block" ? "none" : "block";
-            });
-        }
+            if (window.matchMedia("(max-width: 576px)").matches) {
+                accountBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    dropdown.style.display =
+                        dropdown.style.display === "block" ? "none" : "block";
+                });
+            }
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-        const accountBtn = document.querySelector(".accounts");
-        const dropdown = document.querySelector(".up");
+            const accountBtn = document.querySelector(".accounts");
+            const dropdown = document.querySelector(".up");
 
-        if (window.matchMedia("(max-width: 786px)").matches) {
-            accountBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                dropdown.style.display = 
-                    dropdown.style.display === "block" ? "none" : "block";
-            });
-        }
+            if (window.matchMedia("(max-width: 786px)").matches) {
+                accountBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    dropdown.style.display =
+                        dropdown.style.display === "block" ? "none" : "block";
+                });
+            }
         });
     </script>
 </body>

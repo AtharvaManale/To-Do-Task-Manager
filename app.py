@@ -147,7 +147,7 @@ def add():
 
 
 @app.route('/delete', methods = ['POST'])
-def delete():
+def delete_():
     if "username" in session:
         username = session['username']
         t1 = request.form['t1']
@@ -181,9 +181,8 @@ def update_status():
         flask("First Login To Access Features.", "info")
         return redirect('/l')
 
-
-@app.route('/update_status', methods=['POST', 'PUT'])
-def update_status():
+@app.route('/update_status', methods=['POST'])
+def update_status_():
     if "username" in session:
         username = session['username']
         task = request.form['t1']
@@ -246,7 +245,7 @@ def show_daily():
         flask("First Login To Access Features.")
         return redirect('/l')
 
-@app.route('/update_status2', methods=['POST'])
+@app.route('/update_status_new', methods=['POST', 'PUT'], endpoint='update_status_new_ep')
 def update_status_new():
     if "username" in session:
         username = session['username']
@@ -256,6 +255,23 @@ def update_status_new():
 
         update_status_query = "UPDATE tasks SET status = %s WHERE username = %s AND description = %s"
         mycursor.execute(update_status_query, (status, username, task))
+        mydb.commit()
+        mycursor.close()
+
+        return redirect('/show')
+    else:
+        flask("First Login To Access Features.", "info")
+        return redirect('/l')
+
+@app.route('/delete_new', methods = ['POST'])
+def delete_new():
+    if "username" in session:
+        username = session['username']
+        t1 = request.form['t1']
+        mycursor = mydb.cursor()
+
+        delete_task_query = "DELETE FROM tasks WHERE username=%s AND description=%s"
+        mycursor.execute(delete_task_query, (username, t1))
         mydb.commit()
         mycursor.close()
 

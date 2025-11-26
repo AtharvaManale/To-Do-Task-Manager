@@ -47,8 +47,17 @@ a{
     border-radius: 1rem;
 }
 .tasks{
-    margin: 100px 0 0 100px;
+    max-height: 400px;   /* height of around 7 tasks */
+    overflow-y: auto;    /* enable vertical scroll ONLY inside this box */
+    margin: 0 0 0 100px;
     padding: 20px;
+}
+.tasks::-webkit-scrollbar {
+    display: none;
+}
+.tasks::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }
 .up{
     display: none;

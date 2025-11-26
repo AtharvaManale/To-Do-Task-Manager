@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="part2">
-        <div class="tasks">
+        <div class="intro">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages%}
@@ -42,6 +42,8 @@
             {% endfor %}
             {% endif %}
             {% endwith %}
+        </div>
+        <div class="tasks">
             <table>
                 {% for t, status in task %}
                 <tr>
@@ -65,7 +67,7 @@
                     </td>
 
                     <td>
-                        <form action="/update_status_" method="post">
+                        <form action="/update_status_new" method="post">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="t1" value="{{ t }}">
                             <select name="status" id="status" onchange="this.form.submit()">
@@ -76,7 +78,7 @@
                     </td>
 
                     <td>
-                        <form action="/delete" method="post">
+                        <form action="/delete_new" method="post">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="t1" value="{{ t }}">
                             <button id="delete" type="submit">

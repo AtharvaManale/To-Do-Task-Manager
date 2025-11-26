@@ -47,7 +47,7 @@ a{
     border-radius: 1rem;
 }
 .content{
-    margin: 100px 0 0 150px;
+    margin: 50px 0 0 100px;
 }
 .up{
     display: none;
@@ -88,6 +88,9 @@ input{
     border-radius: 5px;
     text-decoration: none;
 }
+#f1{
+    margin-bottom: 40px;
+}
 #add{
     height: 33px;
     width: 65px;
@@ -108,9 +111,6 @@ input{
     width: 100px;
     color: red;
     margin-left: 20px;
-}
-table{
-    margin-top: 50px;
 }
 select{
     border: none;
@@ -139,6 +139,18 @@ select{
 }
 #daily_tasks:hover #p{
     display: block;
+}
+.tasks{
+    max-height: 350px;   /* height of around 7 tasks */
+    overflow-y: auto;    /* enable vertical scroll ONLY inside this box */
+    padding: 40px;
+}
+.tasks::-webkit-scrollbar {
+    display: none;
+}
+.tasks::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }
 
 @media (max-width: 1440px){
