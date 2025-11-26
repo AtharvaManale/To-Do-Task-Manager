@@ -24,7 +24,7 @@
             <h3><i class="fa-solid fa-id-card"></i> {{user}}</h3>
             <div class="up">
                 <a href='/logout'><h3><i class="fa-solid fa-right-to-bracket"></i> Log Out</h3></a>
-                <form action="/delete_account" method="post" id="delete_account_form">
+                <form action="/deleteaccount" method="post" id="delete_account_form">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button id="delete_account" type="submit">
                         <h3><i class="fa-solid fa-user-xmark"></i> Delete Account</h3>

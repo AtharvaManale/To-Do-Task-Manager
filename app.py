@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, session, flash
 import mysql.connector
+from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -10,8 +11,16 @@ load_dotenv()
 
 app = Flask (__name__)
 app.secret_key = os.getenv("key")
-
+mail = Mail(app)
 csrf = CSRFProtect(app)
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = os.getenv("Email_USERNAME")
+app.config['MAIL_PASSWORD'] = os.getenv("Email_PASSWORD")
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv("Email_USERNAME")
 
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
@@ -22,7 +31,7 @@ mydb = mysql.connector.connect(
     auth_plugin="mysql_native_password"
 )
 
-ALLOWED_PATTERN = re.compile(r"^[a-zA-Z0-9\s.,!?'-]{1,200}$")
+ALLOWED_PATTERN = re.compile(r"^[a-zA-Z0-9\s.'-]{1,200}$")
 
 @app.route('/')
 def signup():
@@ -57,6 +66,17 @@ def validate_info():
         mycursor.execute(create_account_query, (email, username, hashed_password))
         mydb.commit()
         mycursor.close()
+        
+        msg = Message(
+            subject="Hello from Flask!",
+            recipients=[f'{email}'],
+            body=f'Hey {username}! Thanks For Signing Up with TO-DO. Enjoy the experience with the app.'
+        )
+        try:
+            mail.send(msg)
+        except Exception as e:
+            print("Mail send failed:", e)
+            flash("Could not send confirmation email. Check mail configuration.", "warning")
 
         flash("Account Was Created Successfully, Login To Continue", "info")
         return redirect('/l')
@@ -308,7 +328,7 @@ def logout():
     session.pop("username", None)
     return redirect('/l')
 
-@app.route('/delete_account')
+@app.route('/deleteaccount', methods = ['Post'])
 def delete_account():
     if "username" in session:
         username = session['username']
@@ -328,9 +348,9 @@ def delete_account():
         flash("Account Was Deleted Successfully, SignUp To Create New", "info")
         return redirect('/')
     else:
-        flask("First Login To Access Features.","info")
+        flash("First Login To Access Features.","info")
         return redirect('/l')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
+
