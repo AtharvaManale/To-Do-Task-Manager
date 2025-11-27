@@ -10,17 +10,19 @@ import re
 load_dotenv()
 
 app = Flask (__name__)
-app.secret_key = os.getenv("key")
-mail = Mail(app)
-csrf = CSRFProtect(app)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_SERVER'] = os.getenv("Email_SERVER")
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = os.getenv("Email_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("Email_PASSWORD")
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv("Email_USERNAME")
+app.secret_key = os.getenv("key")
+
+mail = Mail(app)
+csrf = CSRFProtect(app)
+
 
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
@@ -68,7 +70,7 @@ def validate_info():
         mycursor.close()
         
         msg = Message(
-            subject="Hello from Flask!",
+            subject="Confirmation from TO-DO!",
             recipients=[f'{email}'],
             body=f'Hey {username}! Thanks For Signing Up with TO-DO. Enjoy the experience with the app.'
         )
