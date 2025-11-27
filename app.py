@@ -6,6 +6,8 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf.csrf import CSRFProtect
 import re
+import random
+import time
 
 load_dotenv()
 
@@ -44,6 +46,10 @@ def validate_info():
     email = request.form['email']
     username = request.form['username']
     password = request.form['password']
+    hashed_password = generate_password_hash(password)
+    session['email'] = email
+    session['username'] = username
+    session['password'] = hashed_password
     mycursor = mydb.cursor()
 
     check_account_query = "SELECT * FROM login WHERE email=%s OR username=%s"
@@ -62,26 +68,88 @@ def validate_info():
         flash("This Account Already Exist!")
         return redirect('/')
     else:
-        hashed_password = generate_password_hash(password)
-
-        create_account_query = "INSERT INTO login(email, username, password) VALUE(%s, %s, %s)"
-        mycursor.execute(create_account_query, (email, username, hashed_password))
         mydb.commit()
         mycursor.close()
-        
-        msg = Message(
-            subject="Confirmation from TO-DO!",
-            recipients=[f'{email}'],
-            body=f'Hey {username}! Thanks For Signing Up with TO-DO. Enjoy the experience with the app.'
-        )
-        try:
-            mail.send(msg)
-        except Exception as e:
-            print("Mail send failed:", e)
-            flash("Could not send confirmation email. Check mail configuration.", "warning")
 
-        flash("Account Was Created Successfully, Login To Continue", "info")
-        return redirect('/l')
+        return redirect('/signup/verification')
+
+@app.route('/signup/verification', methods = ['Get', 'Post'])
+def otp_generator():
+    otp = str(random.randint(100000, 999999))
+    session['otp'] = generate_password_hash(otp)
+    session['otp_time'] = time.time()
+
+    msg = Message(
+        subject="Account Verification",
+        recipients=[session['email']],
+        body=f"Hey {session['username']}! This is One Time Password to verify your account {otp}"
+    )
+    try:
+        mail.send(msg)
+    except Exception as e:
+        print("Mail send failed:", e)
+        flash("Could not send confirmation email. Enter valid mail address", "warning")
+
+    return render_template("otp.html", email = session['email'])
+
+@app.route('/verification', methods = ['Post'])
+def verify():
+    d1 = request.form['d1']
+    d2 = request.form['d2']
+    d3 = request.form['d3']
+    d4 = request.form['d4']
+    d5 = request.form['d5']
+    d6 = request.form['d6']
+    
+    list_in = [d1, d2, d3, d4, d5, d6]
+    user_input = "".join(list_in)
+
+    if time.time() - session['otp_time'] > 300:
+        session.pop('otp', None)
+        session.pop('otp_time', None)
+
+        flash("OTP expired, please click on resend.")
+        return render_template("otp.html", email = session['email'])
+
+    elif not check_password_hash(session['otp'], user_input):
+        flash("Enter Correct OTP!")
+        return render_template("otp.html")
+
+    msg = Message(
+            subject="Confirmation from TO-DO!",
+            recipients = [session['email']],
+            body= f'Hey {session["username"]}! Thanks For Signing Up with TO-DO. Enjoy the experience of the app.'
+        )
+    try:
+        mail.send(msg)
+    except Exception as e:
+        print("Mail send failed:", e)
+        flash("Could not send confirmation email. Enter valid mail address", "warning")
+    mycursor = mydb.cursor()
+    create_account_query = "INSERT INTO login(email, username, password) VALUES(%s, %s, %s)"
+    mycursor.execute(create_account_query, (session["email"], session["username"], session['password']))
+    mydb.commit()
+    mycursor.close()
+
+    session.pop("email", None)
+    session.pop("username", None)
+    session.pop("password", None)
+    session.pop("otp", None)
+    session.pop("otp_time", None)
+
+    flash("Account Was Created Successfully, Login To Continue", "info")
+    return redirect('/l')
+
+@app.route('/back')
+def back():
+    session.pop("email", None)
+    session.pop("username", None)
+    session.pop("password", None)
+    session.pop("otp", None)
+    session.pop("otp_time", None)
+
+    flash("Sign Up with Valid Email")
+    return redirect('/')
 
 @app.route('/l')
 def login():
