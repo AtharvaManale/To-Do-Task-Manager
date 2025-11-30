@@ -8,10 +8,21 @@ from flask_wtf.csrf import CSRFProtect
 import re
 import random
 import time
+from redis import Redis
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv()
 
 app = Flask (__name__)
+
+redis_client = Redis(host = os.getenv("HOST"), port = os.getenv("Redis_PORT"), db = 0)
+
+limiter = Limiter(
+    key_func=get_remote_address,
+    storage_uri=f"redis://{os.getenv('HOST')}:{os.getenv('Redis_PORT')}",
+    app=app
+)
 
 app.config['MAIL_SERVER'] = os.getenv("Email_SERVER")
 app.config['MAIL_PORT'] = 587
@@ -27,7 +38,7 @@ csrf = CSRFProtect(app)
 
 
 mydb = mysql.connector.connect(
-    host=os.getenv("DB_HOST"),
+    host=os.getenv("HOST"),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
     database=os.getenv("DB_NAME"),
@@ -74,71 +85,74 @@ def validate_info():
         return redirect('/signup/verification')
 
 @app.route('/signup/verification', methods = ['Get', 'Post'])
+@limiter.limit("3 per hour;10 per day")
 def otp_generator():
-    otp = str(random.randint(100000, 999999))
-    session['otp'] = generate_password_hash(otp)
-    session['otp_time'] = time.time()
+    if "username" in session:
+        otp = str(random.randint(100000, 999999))
+        session['otp'] = generate_password_hash(otp)
+        session['otp_time'] = time.time()
 
-    msg = Message(
-        subject="Account Verification",
-        recipients=[session['email']],
-        body=f"Hey {session['username']}! This is One Time Password to verify your account {otp}"
-    )
-    try:
-        mail.send(msg)
-    except Exception as e:
-        print("Mail send failed:", e)
-        flash("Could not send confirmation email. Enter valid mail address", "warning")
+        msg = Message(
+            subject="Account Verification",
+            recipients=[session['email']],
+            body=f"Hey {session['username']}! This is One Time Password to verify your account {otp}"
+        )
+        try:
+            mail.send(msg)
+        except Exception as e:
+            print("Mail send failed:", e)
+            flash("Could not send confirmation email. Enter valid mail address", "warning")
 
-    return render_template("otp.html", email = session['email'])
+        return render_template("otp.html", email = session['email'])
 
 @app.route('/verification', methods = ['Post'])
 def verify():
-    d1 = request.form['d1']
-    d2 = request.form['d2']
-    d3 = request.form['d3']
-    d4 = request.form['d4']
-    d5 = request.form['d5']
-    d6 = request.form['d6']
-    
-    list_in = [d1, d2, d3, d4, d5, d6]
-    user_input = "".join(list_in)
+    if "email" in session:
+        d1 = request.form['d1']
+        d2 = request.form['d2']
+        d3 = request.form['d3']
+        d4 = request.form['d4']
+        d5 = request.form['d5']
+        d6 = request.form['d6']
+        
+        list_in = [d1, d2, d3, d4, d5, d6]
+        user_input = "".join(list_in)
 
-    if time.time() - session['otp_time'] > 300:
-        session.pop('otp', None)
-        session.pop('otp_time', None)
+        if time.time() - session['otp_time'] > 300:
+            session.pop('otp', None)
+            session.pop('otp_time', None)
 
-        flash("OTP expired, please click on resend.")
-        return render_template("otp.html", email = session['email'])
+            flash("OTP expired, please click on resend.")
+            return render_template("otp.html", email = session['email'])
 
-    elif not check_password_hash(session['otp'], user_input):
-        flash("Enter Correct OTP!")
-        return render_template("otp.html")
+        elif not check_password_hash(session['otp'], user_input):
+            flash("Enter Correct OTP!")
+            return render_template("otp.html")
 
-    msg = Message(
-            subject="Confirmation from TO-DO!",
-            recipients = [session['email']],
-            body= f'Hey {session["username"]}! Thanks For Signing Up with TO-DO. Enjoy the experience of the app.'
-        )
-    try:
-        mail.send(msg)
-    except Exception as e:
-        print("Mail send failed:", e)
-        flash("Could not send confirmation email. Enter valid mail address", "warning")
-    mycursor = mydb.cursor()
-    create_account_query = "INSERT INTO login(email, username, password) VALUES(%s, %s, %s)"
-    mycursor.execute(create_account_query, (session["email"], session["username"], session['password']))
-    mydb.commit()
-    mycursor.close()
+        msg = Message(
+                subject="Confirmation from TO-DO!",
+                recipients = [session['email']],
+                body= f'Hey {session["username"]}! Thanks For Signing Up with TO-DO. Enjoy the experience of the app.'
+            )
+        try:
+            mail.send(msg)
+        except Exception as e:
+            print("Mail send failed:", e)
+            flash("Could not send confirmation email. Enter valid mail address", "warning")
+        mycursor = mydb.cursor()
+        create_account_query = "INSERT INTO login(email, username, password) VALUES(%s, %s, %s)"
+        mycursor.execute(create_account_query, (session["email"], session["username"], session['password']))
+        mydb.commit()
+        mycursor.close()
 
-    session.pop("email", None)
-    session.pop("username", None)
-    session.pop("password", None)
-    session.pop("otp", None)
-    session.pop("otp_time", None)
+        session.pop("email", None)
+        session.pop("username", None)
+        session.pop("password", None)
+        session.pop("otp", None)
+        session.pop("otp_time", None)
 
-    flash("Account Was Created Successfully, Login To Continue", "info")
-    return redirect('/l')
+        flash("Account Was Created Successfully, Login To Continue", "info")
+        return redirect('/l')
 
 @app.route('/back')
 def back():
