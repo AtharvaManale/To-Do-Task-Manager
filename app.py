@@ -217,7 +217,7 @@ def tasks():
     
         return render_template("tasks.html", user = username, task = tasks, fav = favs)
     else:
-        flask("First Login To Access Features.")
+        flash("First Login To Access Features.")
         return redirect('/l')
 
 @app.route('/add', methods = ['POST'])
@@ -246,7 +246,7 @@ def add():
         mycursor.close()
         return redirect('/task')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 
@@ -264,7 +264,7 @@ def delete_():
 
         return redirect('/task')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/update_status', methods=['POST'])
@@ -282,7 +282,7 @@ def update_status():
 
         return redirect('/task')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/update_status', methods=['POST'])
@@ -300,7 +300,7 @@ def update_status_():
 
         return redirect('/task')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/fav', methods = ['Post'])
@@ -323,7 +323,7 @@ def daily_task():
         mycursor.close()
         return redirect('/task')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/show')
@@ -346,7 +346,7 @@ def show_daily():
             flash("Here You Go, Your Daily Tasks.")
         return render_template("daily.html", task = tasks, fav = favs, user = username)
     else:
-        flask("First Login To Access Features.")
+        flash("First Login To Access Features.")
         return redirect('/l')
 
 @app.route('/update_status_new', methods=['POST', 'PUT'], endpoint='update_status_new_ep')
@@ -364,7 +364,7 @@ def update_status_new():
 
         return redirect('/show')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/delete_new', methods = ['POST'])
@@ -381,7 +381,7 @@ def delete_new():
 
         return redirect('/show')
     else:
-        flask("First Login To Access Features.", "info")
+        flash("First Login To Access Features.", "info")
         return redirect('/l')
 
 @app.route('/remove', methods=['Post'])
@@ -404,7 +404,7 @@ def remove_dailytask():
         mycursor.close()
         return redirect('/show')
     else:
-        flask("First Login To Access Features.")
+        flash("First Login To Access Features.")
         return redirect('/l')
 
 @app.route('/logout')
@@ -437,4 +437,3 @@ def delete_account():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
