@@ -1,6 +1,6 @@
 # ✅ To-Do Task Manager App
 
-A full-stack Task Manager web app built using **Flask**, **MySQL**, **Redis**and **HTML/CSS/JS**.
+A full-stack Task Manager web app built using **Flask**, **MySQL**, **Redis** and **HTML/CSS/JS**.
 
 Users can register(Verified Registrations only), log in, create tasks, update status, mark favorites (daily tasks), and delete their account. Data is securely stored and fetched from a MySQL database. Also used rate limiters(flask-limiter, Redis) to avoid server overloads.
 
@@ -8,14 +8,17 @@ Users can register(Verified Registrations only), log in, create tasks, update st
 
 ## 🚀 Features
 
-- 🔐 User Authentication (Signup/Login)
-- 📝 Add/Delete Tasks
+- 🔐 User Authentication (Signup / Login)
+- 📧 Email OTP verification during signup
+- 🔒 Secure password hashing (Werkzeug)
+- 📝 Add / Delete Tasks
 - ✅ Task Status (Complete / Incomplete)
 - ⭐ Mark Favorite (Daily) Tasks
 - 📋 Filter & View Daily Tasks
-- 🔐 Session-Based Login
-- 🔁 Auto status/icon update using DB
-- 🧼 Account Deletion with Task Cleanup
+- 🛡️ CSRF protection using Flask-WTF
+- 🔑 Session-Based Login
+- 🔁 Auto status / icon update using Database
+- 🧼 Account Deletion with Automatic Task Cleanup
 
 ---
 
@@ -23,9 +26,11 @@ Users can register(Verified Registrations only), log in, create tasks, update st
 
 - Python (Flask)
 - MySQL (with `mysql-connector-python`)
+- Cache: Redis
 - HTML5, CSS3, JavaScript
 - Jinja2 Templates
 - dotenv for config management
+- Email: Flask-Mail
 
 ---
 

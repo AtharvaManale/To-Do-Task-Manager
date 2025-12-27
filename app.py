@@ -285,23 +285,6 @@ def update_status():
         flash("First Login To Access Features.", "info")
         return redirect('/l')
 
-@app.route('/update_status', methods=['POST'])
-def update_status_():
-    if "username" in session:
-        username = session['username']
-        task = request.form['t1']
-        status = request.form['status']
-        mycursor = mydb.cursor()
-
-        update_status_query = "UPDATE tasks SET status = %s WHERE username = %s AND description = %s"
-        mycursor.execute(update_status_query, (status, username, task))
-        mydb.commit()
-        mycursor.close()
-
-        return redirect('/task')
-    else:
-        flash("First Login To Access Features.", "info")
-        return redirect('/l')
 
 @app.route('/fav', methods = ['Post'])
 def daily_task():
@@ -436,4 +419,4 @@ def delete_account():
         return redirect('/l')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
